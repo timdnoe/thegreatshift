@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title }}</title>
     <meta name="description" content="{{ description }}">
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{{ description }}">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23c3d021'/%3E%3Ctext x='32' y='46' font-family='Arial Black,Arial,sans-serif' font-size='40' font-weight='900' text-anchor='middle' fill='%23111'%3ES%3C/text%3E%3C/svg%3E">
+    <link rel="preload" href="/media/fonts/archivo-black.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/media/fonts/nunito-var.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/style.css">
   </head>
   <body>
-    <main>
-      {{ content | safe }}
-    </main>
+    {{ content | safe }}
   </body>
 </html>
