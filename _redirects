@@ -1,0 +1,3 @@
+# Redirect rules, one per line: <from> <to> <status>
+# Example:
+#   /old-page /new-page 301

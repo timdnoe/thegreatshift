@@ -1,27 +1,51 @@
-# The Great Shift
+# thegreatshift
 
-A static website deployed with [Cloudflare Pages](https://pages.cloudflare.com/).
-
-## Deploying to Cloudflare Pages (free)
-
-1. Sign in (or sign up, free) at [dash.cloudflare.com](https://dash.cloudflare.com).
-2. Go to **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
-3. Authorize Cloudflare to access GitHub and select the `thegreatshift` repository.
-4. Configure the build:
-   - **Production branch**: `main` (or whichever branch you choose)
-   - **Framework preset**: None
-   - **Build command**: *(leave empty)*
-   - **Build output directory**: `/`
-5. Click **Save and Deploy**.
-
-Cloudflare gives the site a free URL like `https://thegreatshift.pages.dev`.
-Every push to the production branch automatically redeploys the site, and pushes
-to other branches get free preview URLs.
+Static site built with [Eleventy](https://www.11ty.dev/), deployed to Cloudflare
+Workers.
 
 ## Local development
 
-It's just static HTML — open `index.html` in a browser, or run a local server:
-
 ```sh
-python3 -m http.server
+npm install
+npm run dev     # http://localhost:8080, live reload
+npm run build   # one-off build into _site/
 ```
+
+## Deployment
+
+Deployment is automatic. Cloudflare Workers Builds is connected to this repo:
+every push to `main` triggers a build and deploy. There is no manual deploy
+step and no `wrangler deploy` in `package.json` — running one locally would
+race the git-connected build for control of the production deployment.
+
+Dashboard settings (Workers & Pages → thegreatshift → Settings → Build):
+
+| Setting | Value |
+| --- | --- |
+| Build command | `npm run build` |
+| Deploy command | `npx wrangler deploy` |
+| Root directory | `/` |
+
+Everything else lives in `wrangler.toml`, including the build output directory
+(`[assets] directory`) — Workers has no dashboard field for it.
+
+This is Workers, not Pages. Cloudflare put Pages into maintenance mode and
+directs new projects to [Workers with static assets](https://developers.cloudflare.com/workers/static-assets/);
+Pages documentation and its `pages_build_output_dir` setting do not apply here.
+
+## Layout
+
+```
+src/            Eleventy input
+  _includes/    layouts
+  index.njk     homepage
+  404.njk       → /404.html, served on unmatched paths
+  style.css
+_headers        response headers
+_redirects      redirect rules
+media/          images and other static files
+```
+
+`_headers`, `_redirects`, and `robots.txt` sit at the repo root and are copied
+into `_site` by `.eleventy.js`. Cloudflare only reads them from inside the
+assets directory, so they have to be copied through rather than left here.
