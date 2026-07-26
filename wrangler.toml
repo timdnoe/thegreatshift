@@ -3,6 +3,9 @@
 # Deploy command is set in the dashboard: npx wrangler deploy
 name = "thegreatshift"
 compatibility_date = "2026-07-26"
+# Serve the site at the free <name>.<account>.workers.dev URL. Without this the
+# Worker deploys with no public route ("No URLs enabled" in the dashboard).
+workers_dev = true
 
 [assets]
 directory = "./_site"
