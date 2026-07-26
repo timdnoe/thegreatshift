@@ -18,6 +18,8 @@ every push to `main` triggers a build and deploy. There is no manual deploy
 step and no `wrangler deploy` in `package.json` — running one locally would
 race the git-connected build for control of the production deployment.
 
+Production URL: <https://thegreatshift.timdnoe.workers.dev>
+
 Dashboard settings (Workers & Pages → thegreatshift → Settings → Build):
 
 | Setting | Value |
