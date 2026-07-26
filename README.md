@@ -49,3 +49,8 @@ media/          images and other static files
 `_headers`, `_redirects`, and `robots.txt` sit at the repo root and are copied
 into `_site` by `.eleventy.js`. Cloudflare only reads them from inside the
 assets directory, so they have to be copied through rather than left here.
+
+## Fonts
+
+Archivo Black and Nunito are self-hosted in `media/fonts/` as woff2 (no
+third-party font requests). `_headers` gives them a one-year immutable cache.
